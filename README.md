@@ -1,6 +1,6 @@
-# AETHER — Scroll film
+# FRAME° — Project 001
 
-A minimal Next.js / React landing page with GSAP ScrollTrigger. Uses the supplied real film at `public/sequence.mp4` (10.005 seconds, 1280 × 720).
+A cinematic creative-studio website and the first foundation of a reusable creative website system. Built with React, TypeScript, Vite, GSAP and ScrollTrigger.
 
 ## Run
 
@@ -9,19 +9,26 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000. For production, run `npm run build` then `npm start`. Run `npm run typecheck` for TypeScript validation.
+Open http://localhost:3001. The port is strict, so an occupied port produces a clear error instead of silently selecting another one.
 
-## Experience
+```sh
+npm run typecheck
+npm run build
+npm start
+```
 
-- The 400svh section pins a viewport-height stage for 300svh of travel. ScrollTrigger maps this travel to the entire video duration.
-- Playback is always paused. There is no autoplay, loop, or native controls. A time-based animation loop interpolates the scroll position and seeks the video, allowing only one outstanding seek. It sleeps when the frame catches up.
-- The server-rendered video requests metadata, then requests frame data on mount. Loading and retry states handle unavailable media.
-- Reduced-motion preference keeps the first video frame static, disables animated navigation, and preserves scroll access to the closing content.
-- The closing CTA intentionally returns to the beginning only when clicked.
-- Video is rendered with `object-fit: cover`; narrower viewports crop the edges while preserving the aspect ratio.
+`npm start` serves the production build at port 3001. Stop the development server before starting it. Deploy the `dist` directory to a static host.
 
-## Customize
+## Editing
 
-Copy and markup: `src/components/scroll-experience.tsx`. Colors, typography, and responsive styles: `src/app/globals.css`. Metadata: `src/app/layout.tsx`.
+- Copy, navigation, project data and demo contact: `src/content/site.config.ts`
+- Tokens: `src/styles/tokens.css`
+- Page composition: `src/App.tsx`
+- Shared behavior and primitives: `src/motion`, `src/hooks`, `src/components/ui`
+- Architecture guide: `MASTER-WEBSITE-SYSTEM.md`
 
-The original supplied MP4 is preserved without transcoding. For longer or higher-resolution future films, use a fast-start MP4 with frequent keyframes to reduce random-seek decoding costs. The hosting server should support byte-range requests. Google Fonts provides optional Manrope and DM Sans with local system fallbacks.
+The unchanged source is `public/media/hero.mp4`. The page uses the optimized `public/media/hero-scroll.mp4` through one persistent `GlobalScrollVideo` at the app root. Total document scroll maps to 0 through duration minus one frame, with GSAP scrub 0.5. The video always stays paused: no autoplay, looping or section-specific players. Transparent sections and changing directional contrast reveal one continuous film. Reduced motion displays the poster; mobile caps seek requests at 30 per second.
+
+The three work images are original local SVG placeholders for clearly labeled independent concept studies. The contact address is a demo placeholder. Social profiles are inactive until configured. No backend or form submission service is claimed.
+
+Inter Tight is self-hosted with its OFL license. No external font or stock-media requests occur at runtime.

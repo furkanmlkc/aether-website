@@ -1,0 +1,418 @@
+/* Project 001 composition: content travels over one persistent film. */
+#root {
+  position: relative;
+  isolation: isolate;
+}
+.global-film {
+  --film-veil: 0.04;
+  --film-left: 0.5;
+  --film-right: 0;
+  --film-bottom: 0.55;
+  --film-tint: 0;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: #301207;
+  pointer-events: none;
+}
+.global-film-video,
+.global-film-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--film-object-position, center);
+}
+.global-film-video {
+  opacity: 0;
+  transition: opacity 0.45s;
+}
+.global-film-video.is-ready {
+  opacity: 1;
+}
+.film-contrast {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.film-contrast > div {
+  position: absolute;
+  inset: 0;
+}
+.film-veil {
+  background: #050605;
+  opacity: var(--film-veil);
+}
+.film-left {
+  background: linear-gradient(
+    90deg,
+    #050605 0%,
+    #0506058a 40%,
+    transparent 75%
+  );
+  opacity: var(--film-left);
+}
+.film-right {
+  background: linear-gradient(270deg, #050605, transparent 60%);
+  opacity: var(--film-right);
+}
+.film-bottom {
+  background: linear-gradient(0deg, #050605, transparent 65%);
+  opacity: var(--film-bottom);
+}
+.film-tint {
+  background: #5e1005;
+  opacity: var(--film-tint);
+}
+.film-status {
+  position: absolute;
+  z-index: 2;
+  top: 180px;
+  left: var(--page-padding);
+}
+.content-layer,
+.footer {
+  position: relative;
+  z-index: 2;
+}
+.content-layer > section {
+  background: transparent;
+}
+.hero {
+  height: 120svh;
+  min-height: 800px;
+  isolation: auto;
+}
+.hero-copy {
+  bottom: calc(20svh + 127px);
+}
+.hero-aside {
+  bottom: calc(20svh + 142px);
+}
+.hero-bottom {
+  bottom: calc(20svh + 34px);
+}
+.headline-line--2 {
+  color: #ffb18e;
+}
+.philosophy {
+  min-height: 120svh;
+  display: flex;
+  flex-direction: column;
+  padding-top: 65px;
+  padding-bottom: 100px;
+}
+.philosophy-body {
+  flex: 1;
+  align-content: center;
+  padding-block: 80px;
+}
+.statement {
+  font-size: clamp(46px, 6.3vw, 120px);
+}
+.accent-text {
+  color: #ffc6a8;
+}
+.philosophy-caption {
+  text-shadow: 0 1px 16px #0008;
+}
+.asterisk {
+  color: #ffc6a8;
+}
+.work {
+  min-height: 200svh;
+  display: flex;
+  flex-direction: column;
+  padding-top: 45px;
+  padding-bottom: 100px;
+  border-color: #ffffff24;
+}
+.work-intro {
+  margin: 55px 0 65px;
+}
+.work-intro > p,
+.expertise-intro > p {
+  color: #e3d9d0;
+  text-shadow: 0 1px 12px #000;
+}
+.project-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 6svh;
+}
+.project {
+  width: 42%;
+  max-width: 660px;
+  margin: 0;
+}
+.project--offset {
+  align-self: flex-end;
+  width: 36%;
+}
+.project--immersive {
+  width: 46%;
+}
+.project .media {
+  aspect-ratio: 1.85;
+}
+.project-button {
+  border: 1px solid #ffffff35;
+  box-shadow: 0 10px 35px #0003;
+}
+.project-caption {
+  padding-top: 16px;
+}
+.project-caption h3 {
+  font-size: clamp(24px, 2.8vw, 46px);
+}
+.project-caption .muted {
+  color: #ddd2c7;
+}
+.project-tag {
+  top: 17px;
+  left: 17px;
+  font-size: 9px;
+}
+.project-open {
+  width: 38px;
+  height: 38px;
+  bottom: 17px;
+  right: 17px;
+}
+.expertise {
+  min-height: 140svh;
+  padding-block: 60px 100px;
+}
+.expertise-intro {
+  margin: 60px 0 65px;
+}
+.service-list {
+  max-width: 72%;
+}
+.service {
+  background: linear-gradient(90deg, #08080830, transparent);
+}
+.service h3 {
+  font-size: clamp(24px, 2.7vw, 50px);
+}
+.service summary {
+  padding-block: 23px;
+}
+.service[open] h3,
+.service[open] .arrow {
+  color: #ffc6a8;
+}
+.service > p {
+  color: #e3d9d0;
+}
+.manifesto {
+  min-height: 120svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-block: 50px;
+  isolation: auto;
+}
+.manifesto h2 {
+  position: relative;
+  text-align: left;
+  margin: 80px 0;
+  font-size: clamp(54px, 7vw, 135px);
+}
+.manifesto-closing {
+  color: #ffccae;
+}
+.manifesto-orbit {
+  display: none;
+}
+.manifesto-note {
+  text-align: left;
+  color: #e3d9d0;
+}
+.contact {
+  min-height: 120svh;
+  color: var(--color-foreground);
+  padding-block: 60px 100px;
+}
+.contact h2 {
+  font-size: clamp(48px, 7.8vw, 150px);
+  margin: 100px 0 80px;
+}
+.contact .magnetic-button {
+  background: var(--color-foreground);
+  color: var(--color-background);
+}
+.contact .magnetic-button:hover {
+  background: #ffd1b7;
+}
+.contact-bottom p {
+  text-shadow: 0 1px 12px #000;
+}
+.footer {
+  background: linear-gradient(0deg, #0c0c0c 15%, #0c0c0cf0 75%, #0c0c0c9c);
+  padding-top: 80px;
+}
+.muted {
+  color: #c6beb5;
+}
+@media (min-width: 1800px) {
+  .hero-copy {
+    bottom: calc(20svh + 155px);
+  }
+  .hero-aside {
+    bottom: calc(20svh + 170px);
+  }
+}
+@media (max-width: 900px) {
+  .hero-copy {
+    bottom: calc(20svh + 122px);
+  }
+  .hero-aside {
+    bottom: calc(20svh + 132px);
+  }
+  .philosophy-body {
+    grid-template-columns: 1fr;
+  }
+  .statement {
+    font-size: 8vw;
+  }
+  .philosophy-caption {
+    max-width: 65%;
+  }
+  .project {
+    width: 58%;
+  }
+  .project--offset {
+    width: 52%;
+  }
+  .project--immersive {
+    width: 62%;
+  }
+  .service-list {
+    max-width: 85%;
+  }
+  .manifesto h2 {
+    font-size: 9vw;
+  }
+}
+@media (max-width: 600px) {
+  .global-film-video,
+  .global-film-poster {
+    object-position: 54% center;
+  }
+  .film-left {
+    background: linear-gradient(90deg, #050605, #05060550 55%, transparent);
+  }
+  .film-bottom {
+    background: linear-gradient(0deg, #050605, #05060590 35%, transparent 75%);
+  }
+  .hero {
+    min-height: 820px;
+  }
+  .hero-copy {
+    bottom: calc(20svh + 124px);
+  }
+  .hero-bottom {
+    bottom: calc(20svh + 26px);
+  }
+  .film-status {
+    top: 140px;
+    font-size: 8px;
+  }
+  .philosophy {
+    padding-block: 40px 70px;
+    min-height: 120svh;
+  }
+  .philosophy-body {
+    padding-top: 150px;
+    padding-bottom: 20px;
+    align-content: end;
+  }
+  .statement {
+    font-size: 10vw;
+  }
+  .philosophy-caption {
+    max-width: 100%;
+  }
+  .work {
+    min-height: 200svh;
+    padding-block: 35px 80px;
+  }
+  .work-intro {
+    margin: 40px 0 65px;
+  }
+  .project-list {
+    gap: 70px;
+  }
+  .project,
+  .project--immersive {
+    width: 82%;
+  }
+  .project--offset {
+    width: 76%;
+  }
+  .project .media {
+    aspect-ratio: 1.55;
+  }
+  .project-caption h3 {
+    font-size: 25px;
+  }
+  .project-tag {
+    font-size: 7px;
+    left: 12px;
+    top: 12px;
+  }
+  .project-open {
+    width: 30px;
+    height: 30px;
+    right: 12px;
+    bottom: 12px;
+  }
+  .expertise {
+    min-height: 140svh;
+    padding-block: 35px 80px;
+  }
+  .expertise-intro {
+    margin: 70px 0 65px;
+  }
+  .service-list {
+    max-width: 100%;
+  }
+  .service h3 {
+    font-size: clamp(20px, 5.7vw, 29px);
+  }
+  .service summary {
+    padding-block: 25px;
+  }
+  .manifesto {
+    min-height: 120svh;
+    padding-block: 35px 60px;
+  }
+  .manifesto h2 {
+    font-size: 11.3vw;
+    margin: 200px 0 100px;
+  }
+  .contact {
+    min-height: 120svh;
+    padding-block: 40px 80px;
+  }
+  .contact h2 {
+    font-size: 10.7vw;
+    margin: 200px 0 90px;
+  }
+  .contact .section-heading > .micro {
+    max-width: 120px;
+  }
+  .footer {
+    padding-top: 50px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .global-film-video {
+    transition: none;
+  }
+}
